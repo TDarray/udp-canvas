@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="selectArea">
+        <option value=":SENSE:FREQ:CENT ">设置中心频率</option>
+        <option value=":SENSE:FREQ:SPAN ">设置频率跨度</option>
+        <option value=":SENSE:POW:RF:ATT:AUTO ">设置自动开启参考幅度ON|OFF</option>
+        <option value=":SENSE:POW:RLEV ">设置参考幅度</option>
+        <option value=":SENSE:POW:RF:DIV ">设置DIV</option>
+        <option value=":SENSE:BAND:RES ">手动设置RBW</option>
+        <option value=":SENSE:FFT:POIN ">设置FFT点数</option>
+        <option value=":SENSE:SWP:TIME ">设置扫描时间(附单位：秒)</option>
+        <option value=":SENSE:SWP:POIN ">设置扫描点数</option>
+        <option value=":SENSE:DET:FUNC ">设置检波模式NORMAL|NEG|POS|SAMP</option>
+        <option value=":SENSE:BAND:VID ">手动设置VBW</option>
+        <option value=":SENSE:WAT:CS ">设定监测信道</option>
+        <option value=":SENSE: WAT:STAT ">设定是否开启监测OFF|ON</option>
+        <option value=":SENSE: WAT:SLMT:DELTAF ">设定展宽阈值</option>
+        <option value=":SENSE: WAT:SLMT:NEWCAR ">设定新载波出现阈值(实际值*1000)</option>
+        <option value=":SENSE: WAT:SLMT:TOP ">设定上门限值(实际值*1000)</option>
+        <option value=":SENSE: WAT: SLMT:BTM ">设定下门限值(实际值*1000)</option>
+        <option value=":SENSE:WAT:SLMT:DEL ">消失门限值 (实际值*1000)</option>
+        <option value=":SENSE:WAT:SLMT:SETTEMP ">设置生成模板采集帧数</option>
+    </select>
+    <input type="text" name="inputValue" id="val"/>
+    <button id="ck" onclick="tijiao()">提交</button>
+</div>
+<script>
+    function tijiao(){
+        var a=document.getElementById("val").value;
+        console.log(a);
+    }
+
+</script>
+</body>
+</html>
