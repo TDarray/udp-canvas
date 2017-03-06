@@ -151,10 +151,6 @@
     <script src="js/echarts.js"></script>
     <!--<script src="js/canvas.js"></script>-->
 <script>
-    var myChart = echarts.init(document.getElementById('main'));
-    var i=0;
-    var inputValue = null;
-    var CandleChartOption = null;
     var socket = io.connect();
     //测试返回数据，连接成功
     socket.on("test", function (data) {
@@ -170,82 +166,43 @@
     socket.on('disconnect', function() {
 
     });
+    var option = {
+        chart: {
+            renderTo: 'main',
+            type: 'spline'
+            /* 图标类型 */
+        },
+        title: {
+            text: 'canvas',
+            x: -20 //center
+        },
 
-    function processingData(jsonData){
-        var newData = jsonData;
-        var low=newData.low; //数据低频
-        var high=newData.high; //数据高频
-        var num=newData.num;
-        var arr1=[];
-        var off=(high-low)/num;
-        for(var k=low;k<=high;k=k+off){
-            arr1.push(k);
-              var xArray={'dbm':arr1};
-        }
-        //console.log(arr1);
-        CandleChartOption = setOption(xArray,newData);
-        myChart.setOption(CandleChartOption);
+        xAxis: {
+            categories:[],
+            tickPixelInterval: 200
+        },
 
-    };
-    function setOption(x,y){
-        var xData= x.dbm;
-        var yData= y.hz;
-        var option = {
+        yAxis: {
+            tickInterval: 10, //自定义刻度
+            max: -50, //纵轴的最大值
+            min: -120, //纵轴的最小值
             title: {
-                text: 'canvas'
-            },
-            tooltip: {
-                trigger: 'axis'
-            },
-            xAxis: {
-
-                data: xData,
-                boundaryGap: false,
-                axisLabel :{
-                    interval:49
-                }
-            },
-            yAxis: {
-                boundaryGap: [0,'100%'],
-                splitLine: {
-                    show: false
-                }
-            },
-
-            toolbox: {
-                left: 'center',
-                feature: {
-                    dataZoom: {
-                        yAxisIndex: 'none'
-                    },
-                    restore: {},
-                    saveAsImage: {}
-                }
-            },
-
-
-            series: {
-                name: 'canvas',
-                type: 'line',
-                data: yData,
-                markLine: {
-                    silent: true,
-                    data: [{
-                        yAxis: 50000
-                    }, {
-                        yAxis: 58000
-                    }, {
-                        yAxis: 64000
-                    }, {
-                        yAxis: 71000
-                    }, {
-                        yAxis: 79000
-                    }]
-                }
+                text: 'AMPT(dbm)'
             }
-        }
-        return option;
+
+        },
+        series: [{
+            data: []
+        },]
+
     }
+    var chart =new Highcharts.Chart(option);
+    //接收转发数据，格式json
+    socket.on('pushToWebClient', function (useData) {
+
+        chart.series[0].setData(useData.dbm);
+        chart.series[0].xAxis.categories=useData.hz;
+    });
     function tijiao(){
         var index=document.getElementById("select").selectedIndex;
         var select = document.getElementById("select").options[index].value;

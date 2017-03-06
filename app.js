@@ -143,7 +143,7 @@ var byteArrayUntil=new function(){
     var arr1=[];
     var arr2=[];
     for(var i=0;i<dataNum;i++){
-      arr1.push(msg.readFloatLE(8+i*offset));
+      arr1.push(msg.readFloatLE(8+i*offset).toFixed(2));
       arr2.push(msg.readFloatLE(8+dataNum*offset+i*offset).toFixed(2));
     }
     return {'hz':arr1,
